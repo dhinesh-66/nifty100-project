@@ -1,20 +1,20 @@
-# src/etl/loader.py
-
 import pandas as pd
+import os
 
+SPECIAL_FILES = [
+    "companies.xlsx",
+    "profitandloss.xlsx",
+    "balancesheet.xlsx",
+    "cashflow.xlsx",
+    "analysis.xlsx",
+    "documents.xlsx",
+    "prosandcons.xlsx"
+]
 
 def load_excel(file_path):
-    """
-    Load an Excel file into a dataframe.
-    """
+    file_name = os.path.basename(file_path)
 
-    try:
-        df = pd.read_excel(file_path)
-        print(f"Loaded {file_path}")
-        print(df.shape)
+    if file_name in SPECIAL_FILES:
+        return pd.read_excel(file_path, header=1)
 
-        return df
-
-    except Exception as e:
-        print(f"Error loading {file_path}: {e}")
-        return None
+    return pd.read_excel(file_path)

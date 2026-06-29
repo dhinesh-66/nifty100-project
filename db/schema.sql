@@ -70,7 +70,10 @@ CREATE TABLE cashflow (
 CREATE TABLE analysis (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
-    analysis TEXT,
+    compounded_sales_growth REAL,
+    compounded_profit_growth REAL,
+    stock_price_cagr REAL,
+    roe REAL,
     FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
@@ -78,8 +81,8 @@ CREATE TABLE analysis (
 CREATE TABLE documents (
     id INTEGER PRIMARY KEY,
     company_id TEXT,
-    document_name TEXT,
-    document_url TEXT,
+    Year TEXT,
+    Annual_Report TEXT,
     FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
@@ -138,11 +141,25 @@ CREATE TABLE financial_ratios (
     FOREIGN KEY(company_id) REFERENCES companies(id)
 );
 
--- Peer Groups Table
+
 CREATE TABLE peer_groups (
     id INTEGER PRIMARY KEY,
     peer_group_name TEXT,
     company_id TEXT,
     is_benchmark INTEGER,
+    FOREIGN KEY(company_id) REFERENCES companies(id)
+);
+
+
+CREATE TABLE market_cap (
+    id INTEGER PRIMARY KEY,
+    company_id TEXT,
+    year TEXT,
+    market_cap_crore REAL,
+    enterprise_value_crore REAL,
+    pe_ratio REAL,
+    pb_ratio REAL,
+    ev_ebitda REAL,
+    dividend_yield_pct REAL,
     FOREIGN KEY(company_id) REFERENCES companies(id)
 );
